@@ -11,3 +11,6 @@ Skąd pomysł na projekt?
     a nie ma na to czasu lub nie ma jak tam pojechać. 
     Natomiast kontenery pod domem lub lokalne zbiórki są niezweryfikowane 
     i nie wiadomo czy te rzeczy faktycznie trafią do potrzebujących.
+
+Celem projektu jest stworzenie miejsca, 
+w którym każdy będzie mógł oddać niepotrzebne rzeczy zaufanym instytucjom.

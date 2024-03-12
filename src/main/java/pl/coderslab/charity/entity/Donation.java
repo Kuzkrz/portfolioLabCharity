@@ -17,11 +17,13 @@ public class Donation {
 
     private int quantity;
 
-    @OneToMany(mappedBy = "donation", cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.ALL)
+   @JoinColumn (name = "donation_id")
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "donation", cascade = CascadeType.ALL)
-    private List<Institution> institutions = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "institution_id")
+    private Institution institutions;
 
     private String street;
     private String city;

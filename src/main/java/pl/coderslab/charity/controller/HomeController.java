@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Institution;
+import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
 
 import java.util.ArrayList;
@@ -16,12 +17,13 @@ import java.util.Random;
 public class HomeController {
 
     private final InstitutionService institutionService;
+    private final DonationService donationService;
 
     @RequestMapping("/")
     public String homeAction(Model model){
 
         List<Institution> allInstitutions = institutionService.getAllInstitutions();
-        System.out.println("All institutions: " + allInstitutions);
+
         if (allInstitutions.isEmpty()) {
             model.addAttribute("noInstitutions", true);
             return "index";
@@ -29,7 +31,12 @@ public class HomeController {
 
         List<Institution>randomInstitutions = getRandomInstitutions(allInstitutions);
         model.addAttribute("institutions",randomInstitutions);
+
+        int totalBags = donationService.calculateTotalBags();
+        model.addAttribute("totalBags", totalBags);
+
         return "index";
+
     }
     private List<Institution> getRandomInstitutions(List<Institution> allInstitutions) {
         Random random = new Random();

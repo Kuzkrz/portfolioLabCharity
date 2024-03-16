@@ -1,21 +1,16 @@
 package pl.coderslab.charity.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.DonationRepository;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class DonationService {
 
     private final DonationRepository donationRepository;
-
-    @Autowired
-    public DonationService(DonationRepository donationRepository) {
-        this.donationRepository = donationRepository;
-    }
 
     public Donation saveDonation(Donation donation) {
         return donationRepository.save(donation);
@@ -31,5 +26,10 @@ public class DonationService {
 
     public void deleteDonationById(Long id) {
         donationRepository.deleteById(id);
+    }
+
+    public int calculateTotalBags() {
+        Integer totalBags = donationRepository.sumOfAllBags();
+        return totalBags != null ? totalBags : 0;
     }
 }

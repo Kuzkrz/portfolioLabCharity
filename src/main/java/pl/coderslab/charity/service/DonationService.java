@@ -31,4 +31,7 @@ public class DonationService {
     public int calculateTotalBags() {
         return donationRepository.sumOfAllBags();
     }
+    public long countTotalDonations() {
+        return donationRepository.count();
+    }
 }

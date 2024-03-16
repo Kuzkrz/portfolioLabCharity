@@ -7,4 +7,5 @@ import pl.coderslab.charity.entity.Donation;
 public interface DonationRepository extends JpaRepository<Donation, Long> {
     @Query("SELECT COALESCE(SUM (d.quantity),0) FROM Donation d")
     int sumOfAllBags();
+    long count();
 }

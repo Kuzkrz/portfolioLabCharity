@@ -35,6 +35,8 @@ public class HomeController {
         int totalBags = donationService.calculateTotalBags();
         model.addAttribute("totalBags", totalBags);
 
+        long totalDonations = donationService.countTotalDonations();
+        model.addAttribute("totalDonations",totalDonations);
         return "index";
 
     }

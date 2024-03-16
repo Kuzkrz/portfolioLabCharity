@@ -1,3 +1,16 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 <%@ include file="header.jsp" %>
 
 <section class="stats">
@@ -69,22 +82,13 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-                      <c:forEach items="${institution}" var="institution" varStatus="status">
-                <c:if test="${status.index % 2 == 0}">
-                    <li>
+            <c:forEach items="${institutions}" var="institution" varStatus="status">
+                <li>
                     <div class="col">
                         <div class="title">${institution.name}</div>
-                        <div class="subtitle">Cel i misja: ${institution.mission}</div>
+                        <div class="subtitle">Cel i misja: ${institution.description}</div>
                     </div>
-                </c:if>
-                <c:if test="${status.index % 2 != 0 or status.last}">
-
-                    <div class="col">
-                        <div class="title">${institution.name}</div>
-                        <div class="subtitle">Cel i misja: ${institution.mission}</div>
-                    </div>
-                    </li>
-                </c:if>
+                </li>
             </c:forEach>
         </ul>
     </div>

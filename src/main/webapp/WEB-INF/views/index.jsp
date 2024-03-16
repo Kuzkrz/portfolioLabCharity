@@ -82,12 +82,20 @@
 
         <ul class="help--slides-items">
             <c:forEach items="${institutions}" var="institution" varStatus="status">
-                <li>
-                    <div class="col">
-                        <div class="title">${institution.name}</div>
-                        <div class="subtitle">Cel i misja: ${institution.description}</div>
-                    </div>
-                </li>
+                <c:if test="${status.index % 2 == 0}">
+                    <li>
+                        <div class="col">
+                            <div class="title">${institution.name}</div>
+                            <div class="subtitle">Cel i misja: ${institution.description}</div>
+                        </div>
+                        <c:if test="${institutions.size() > status.index + 1}">
+                            <div class="col">
+                                <div class="title">${institutions[status.index + 1].name}</div>
+                                <div class="subtitle">Cel i misja: ${institutions[status.index + 1].description}</div>
+                            </div>
+                        </c:if>
+                    </li>
+                </c:if>
             </c:forEach>
         </ul>
     </div>

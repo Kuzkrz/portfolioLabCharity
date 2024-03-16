@@ -29,7 +29,6 @@ public class DonationService {
     }
 
     public int calculateTotalBags() {
-        Integer totalBags = donationRepository.sumOfAllBags();
-        return totalBags != null ? totalBags : 0;
+        return donationRepository.sumOfAllBags();
     }
 }

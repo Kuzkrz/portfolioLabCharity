@@ -11,7 +11,7 @@
 
 <h2>Formularz przekazywania darów</h2>
 
-<form:form method="POST" modelAttribute="donation" action="/saveDonation">
+<form:form id="form" method="POST" modelAttribute="donation" action="/saveDonation">
 
     <div>
         <label for="categories">Kategorie darów:</label><br>
@@ -67,5 +67,34 @@
 
 </form:form>
 
+<div id="summary"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#donationForm').submit(function(event) {
+            event.preventDefault();
+
+            var summary = "<h2>Podsumowanie:</h2>";
+            summary += "<p><strong>Kategorie darów:</strong> ";
+            $('input[name="categories"]:checked').each(function() {
+                summary += $(this).val() + ", ";
+            });
+            summary = summary.slice(0, -2); // Usuwa ostatnią przecinkę i spację
+            summary += "</p>";
+
+            summary += "<p><strong>Instytucja:</strong> " + $('select[name="institution"] option:selected').text() + "</p>";
+            summary += "<p><strong>Kod pocztowy:</strong> " + $('input[name="zipCode"]').val() + "</p>";
+            summary += "<p><strong>Ulica:</strong> " + $('input[name="street"]').val() + "</p>";
+            summary += "<p><strong>Miasto:</strong> " + $('input[name="city"]').val() + "</p>";
+            summary += "<p><strong>Liczba worków:</strong> " + $('input[name="quantity"]').val() + "</p>";
+            summary += "<p><strong>Komentarz:</strong> " + $('textarea[name="pickUpComment"]').val() + "</p>";
+            summary += "<p><strong>Data odbioru:</strong> " + $('input[name="pickUpDate"]').val() + "</p>";
+            summary += "<p><strong>Godzina odbioru:</strong> " + $('input[name="pickUpTime"]').val() + "</p>";
+
+            $('#summary').html(summary);
+        });
+    });
+</script>
 </body>
 </html>

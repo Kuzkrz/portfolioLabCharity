@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Donation;
+import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.service.CategoryService;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
@@ -27,7 +28,7 @@ public class DonationController {
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("institutions", institutionService.getAllInstitutions());
-        return "donationForm";
+        return "formSteps";
     }
 
     @PostMapping("/saveDonation")
@@ -36,10 +37,19 @@ public class DonationController {
         if (result.hasErrors()) {
             model.addAttribute("categories", categoryService.getAllCategories());
             model.addAttribute("institutions", institutionService.getAllInstitutions());
-            return "donationForm";
+            return "formSteps";
         }
-        donationService.saveDonation(donation);
-        return "redirect:/confirmation";
+        Institution institution = donation.getInstitution();
+        if (institution != null && institution.getId() != null) {
+            institution = institutionService.getInstitutionById(institution.getId());
+            donation.setInstitution(institution);
+            donationService.saveDonation(donation);
+            return "redirect:/formConfirmation";
+        } else {
+            System.out.println("Nie ma takiej instytucji");
+            // Obsłuż brak wybranej instytucji, na przykład wyświetl komunikat błędu
+            return "redirect:/error"; // lub inna odpowiednia ścieżka
+        }
     }
 }
 

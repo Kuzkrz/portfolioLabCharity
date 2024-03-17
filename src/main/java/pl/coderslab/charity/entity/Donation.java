@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Donation {
     private Long id;
 
     @Column(name = "quantity")
+    @Min(value = 1)
     private int quantity;
 
     @OneToMany

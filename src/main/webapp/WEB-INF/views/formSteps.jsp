@@ -78,17 +78,16 @@
             <!-- STEP 3 -->
             <div data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+
                 <c:forEach items="${institutions}" var="institution">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input type="checkbox" value="${institution.id}" name="institutionId"/>
+                            <input type="checkbox" value="${institution.id}" name="institution.id"/>
                             <span class="checkbox"> </span>
-
                             <span class="description">
                                 <div class="title">${institution.name}</div>
                                 <div class="subtitle">${institution.description}</div>
                             </span>
-
                         </label>
                     </div>
                 </c:forEach>
@@ -120,12 +119,6 @@
                                 Kod pocztowy <form:input path="zipCode" type="text" name="zipCode"/>
                             </label>
                         </div>
-
-                            <%--                        <div class="form-group form-group--inline">--%>
-                            <%--                            <label>--%>
-                            <%--                                Numer telefonu <input type="phone" name="phone"/>--%>
-                            <%--                            </label>--%>
-                            <%--                        </div>--%>
                     </div>
 
                     <div class="form-section--column">
@@ -202,7 +195,6 @@
 </section>
 
 <%@ include file="footer.jsp" %>
-
 <script src="js/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -211,14 +203,10 @@
         $('form#formSteps').change(function () {
             // Pobierz dane z formularza
             var bagsCount = $('input[name="quantity"]').val(); // Poprawiono na 'quantity'
-            var institutionChecked = $('input[name="institutionId"]:checked');
-
-            console.log(institutionChecked); // Dodaj to do wyświetlenia w konsoli
+            var institutionChecked = $('input[name="institution.id"]:checked');
 
             // Pobierz nazwę zaznaczonej instytucji (jeśli jest zaznaczona)
             var institutionName = institutionChecked.length > 0 ? institutionChecked.siblings('.title').text() : '';
-
-            console.log("Nazwa zaznaczonej instytucji: " + institutionName); // Dodaj to do wyświetlenia w konsoli
 
             var address = $('input[name="street"]').val() + ', ' + $('input[name="zipCode"]').val() + ' ' + $('input[name="city"]').val();
             var date = $('input[name="pickUpDate"]').val(); // Poprawiono na 'pickUpDate'
@@ -234,9 +222,8 @@
             $('#summary-comment').text(comment);
         });
     });
+
 </script>
 
-
 </body>
-
 </html>

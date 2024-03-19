@@ -14,6 +14,8 @@ import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
 
 import javax.validation.Valid;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class DonationController {
@@ -22,34 +24,29 @@ public class DonationController {
     private final CategoryService categoryService;
     private final InstitutionService institutionService;
 
-
     @RequestMapping("/donation")
     public String showDonationForm(Model model) {
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("institutions", institutionService.getAllInstitutions());
+        List<Institution> institutions = institutionService.getAllInstitutions();
+        model.addAttribute("institutions", institutions);
         return "formSteps";
     }
 
     @PostMapping("/saveDonation")
     public String saveDonation(@ModelAttribute("donation") @Valid Donation donation,
-                               BindingResult result, Model model) {
+                               BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("categories", categoryService.getAllCategories());
-            model.addAttribute("institutions", institutionService.getAllInstitutions());
             return "formSteps";
         }
-        Institution institution = donation.getInstitution();
-        if (institution != null && institution.getId() != null) {
-            institution = institutionService.getInstitutionById(institution.getId());
-            donation.setInstitution(institution);
-            donationService.saveDonation(donation);
-            return "redirect:/formConfirmation";
-        } else {
-            System.out.println("Nie ma takiej instytucji");
-            // Obsłuż brak wybranej instytucji, na przykład wyświetl komunikat błędu
-            return "redirect:/error"; // lub inna odpowiednia ścieżka
-        }
+
+        Long institutionId = donation.getInstitution().getId();
+        donation.setInstitution(institutionService.getInstitutionById(institutionId));
+
+        donationService.saveDonation(donation);
+        return "redirect:/formConfirmation";
     }
 }
+
+
 

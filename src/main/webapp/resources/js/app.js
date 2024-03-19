@@ -164,6 +164,19 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
       // TODO: get data from inputs and show them in summary
+      if (this.currentStep === 5) {
+        const institutionName = this.$form.querySelector('input[name="institution.id"]:checked').nextElementSibling.querySelector('.title').innerText;
+        const address = `${this.$form.querySelector('input[name="street"]').value}, ${this.$form.querySelector('input[name="zipCode"]').value} ${this.$form.querySelector('input[name="city"]').value}`;
+        const date = this.$form.querySelector('input[name="pickUpDate"]').value;
+        const time = this.$form.querySelector('input[name="pickUpTime"]').value;
+        const comment = this.$form.querySelector('textarea[name="pickUpComment"]').value;
+
+        document.getElementById('summary-institution').innerText = `Dla fundacji "${institutionName}"`;
+        document.getElementById('summary-address').innerText = address;
+        document.getElementById('summary-date').innerText = date;
+        document.getElementById('summary-time').innerText = time;
+        document.getElementById('summary-comment').innerText = comment;
+      }
     }
 
   }

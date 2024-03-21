@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.service.CategoryService;
@@ -24,7 +22,7 @@ public class DonationController {
     private final CategoryService categoryService;
     private final InstitutionService institutionService;
 
-    @RequestMapping("/donation")
+    @GetMapping("/donation")
     public String showDonationForm(Model model) {
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories", categoryService.getAllCategories());
